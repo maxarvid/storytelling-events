@@ -109,6 +109,16 @@ function ready(datapoints) {
     .attr('fill', function(d) {
       return colorScale(d.state)
     })
+    //Adding a class attribute based on state
+    .attr('class', d => d.state)
+    .on('mouseover', function(d) {
+      d3.selectAll('\.' + d.state)
+        .attr('fill', '#ff0000')
+    })
+    .on('mouseout', function(d) {
+      d3.selectAll('\.'+d.state)
+        .attr('fill', colorScale(d.state))
+    })
 
   var nested = d3
     .nest()
@@ -130,6 +140,10 @@ function ready(datapoints) {
     .attr('d', function(d) {
       return line(d.values)
     })
+    //Adding a class attribute based on state
+    .attr('class', d => d.key)
+
+
 
   svg
     .selectAll('text')
@@ -155,6 +169,8 @@ function ready(datapoints) {
       }
       return 3
     })
+    //Adding a class attribute based on state
+    .attr('class', d => d.key)
 
   var xAxis = d3.axisBottom(xPositionScale)
 
