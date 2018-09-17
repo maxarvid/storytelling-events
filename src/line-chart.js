@@ -59,6 +59,42 @@ function ready(datapoints) {
     .attr('stroke-width', 2)
     .attr('fill', 'none')
 
+  //Adding my circles here
+  svg
+    .selectAll('circle')
+    .data(datapoints)
+    .enter()
+    .append('circle')
+    .attr('fill', '#4cc1fc')
+    .attr('r', 5)
+    .attr('cx', d => {
+      return xPositionScale(d.datetime)
+    })
+    .attr('cy', d => {
+      return yPositionScale(d.Close)
+    })
+    .on('mouseover', function(d) {
+      d3.select(this)
+        .transition()
+        .duration(300)
+        .attr('r', 15)
+
+      d3.select('#date').text(d.Date)
+      d3.select('#open').text(d.Open)
+      d3.select('#high').text(d.High)
+      d3.select('#low').text(d.Low)
+      d3.select('#close').text(d.Close)
+      d3.select('#volume').text(d.Volume)
+
+      d3.select('#info').style('display', 'block')
+    })
+    .on('mouseout', function(d) {
+      d3.select(this)
+        .transition()
+        .duration(300)
+        .attr('r', 5)
+    })
+
   svg
     .append('text')
     .text('AAPL stock price')
