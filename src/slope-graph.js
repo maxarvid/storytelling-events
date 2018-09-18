@@ -110,14 +110,24 @@ function ready(datapoints) {
       return colorScale(d.state)
     })
     //Adding a class attribute based on state
-    .attr('class', d => d.state)
+    .attr('class', d => ('circle' + d.state))
+    //Event code
     .on('mouseover', function(d) {
-      d3.selectAll('\.' + d.state)
+      d3.selectAll('\.circle' + d.state)
+        .attr('fill', '#ff0000')
+      //console.log(d.state)
+      d3.selectAll('\.path' + d.state)
+        .attr('stroke', '#ff0000')
+      d3.selectAll('\.text' + d.state)
         .attr('fill', '#ff0000')
     })
     .on('mouseout', function(d) {
-      d3.selectAll('\.'+d.state)
+      d3.selectAll('\.circle'+d.state)
         .attr('fill', colorScale(d.state))
+      d3.selectAll('\.path'+d.state)
+        .attr('stroke', colorScale(d.state))
+      d3.selectAll('\.text'+d.state)
+        .attr('fill', '#333333')
     })
 
   var nested = d3
@@ -141,9 +151,24 @@ function ready(datapoints) {
       return line(d.values)
     })
     //Adding a class attribute based on state
-    .attr('class', d => d.key)
-
-
+    .attr('class', d => ('path' + d.key))
+    //Event code
+    .on('mouseover', function(d) {
+      d3.selectAll('\.circle' + d.key)
+        .attr('fill', '#ff0000')
+      d3.selectAll('\.path' + d.key)
+        .attr('stroke', '#ff0000')
+      d3.selectAll('\.text' + d.key)
+        .attr('fill', '#ff0000')
+    })
+    .on('mouseout', function(d) {
+      d3.selectAll('\.circle'+d.key)
+        .attr('fill', colorScale(d.key))
+      d3.selectAll('\.path'+d.key)
+        .attr('stroke', colorScale(d.key))
+      d3.selectAll('\.text'+d.key)
+        .attr('fill', '#333333')
+    })
 
   svg
     .selectAll('text')
@@ -170,7 +195,24 @@ function ready(datapoints) {
       return 3
     })
     //Adding a class attribute based on state
-    .attr('class', d => d.key)
+    .attr('class', d => ('text' + d.key))
+    //Event code
+    .on('mouseover', function(d) {
+      d3.selectAll('\.circle' + d.key)
+        .attr('fill', '#ff0000')
+      d3.selectAll('\.path' + d.key)
+        .attr('stroke', '#ff0000')
+      d3.selectAll('\.text' + d.key)
+        .attr('fill', '#ff0000')
+    })
+    .on('mouseout', function(d) {
+      d3.selectAll('\.circle'+d.key)
+        .attr('fill', colorScale(d.key))
+      d3.selectAll('\.path'+d.key)
+        .attr('stroke', colorScale(d.key))
+      d3.selectAll('\.text'+d.key)
+        .attr('fill', '#333333')
+    })
 
   var xAxis = d3.axisBottom(xPositionScale)
 
